@@ -1,7 +1,7 @@
 
 ## Schema archi 
 
-![alt text](https://github.com/QuentinBeauchet/ContextAwareHololens/blob/master/schema.png?raw=true)
+![alt text](https://github.com/QuentinBeauchet/ContextAwareHololens/blob/master/schema.PNG?raw=true)
 
 
 ## Exemple : evaluation de prédicats
