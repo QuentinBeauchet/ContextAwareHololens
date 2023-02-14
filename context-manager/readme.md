@@ -1,3 +1,10 @@
+
+## Schema archi 
+
+![alt text](https://github.com/QuentinBeauchet/ContextAwareHololens/blob/master/schema.PNG?raw=true)
+
+
+## Exemple : evaluation de prédicats
 POST request on `http://localhost:3000/pred`
 
 ```json
