@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Luminosité",
+    "states": [
+      {
+        "name": "normal",
+        "value": 700
+      },
+      {
+        "name": "tres lumineux",
+        "value": 1200
+      }
+    ]
+  },
+  {
+    "name": "Bruit",
+    "states": [
+      {
+        "name": "silencieux",
+        "value": 30
+      },
+      {
+        "name": "normal",
+        "value": 65
+      },
+      {
+        "name": "bruyant",
+        "value": 90
+      }
+    ]
+  }
+]

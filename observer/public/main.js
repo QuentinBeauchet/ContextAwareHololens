@@ -65,8 +65,8 @@ function updateStatus() {
 }
 
 window.onload = async () => {
-  let res = await fetch("http://localhost:3000/obs");
-  let { tasks, context } = await res.json();
+  let res = await Promise.all([fetch("http://localhost:3000/tasks"), fetch("http://localhost:5000/context.json")]);
+  let [tasks, context] = await Promise.all(res.map((r) => r.json()));
 
   window.tasks = tasks;
   window.context = context;
