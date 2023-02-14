@@ -6,6 +6,7 @@ const app = express();
 const port = 3000;
 
 app.use(cors());
+app.use("/assets", express.static("assets"));
 app.use(bodyParser.json());
 
 app.get("/obs", (req, res) => {
@@ -19,7 +20,7 @@ app.get("/obs", (req, res) => {
           },
           {
             display: ["obj_2", "obj_5"],
-            media: "video_1",
+            media: "video_1.mp4",
           },
           {
             display: ["obj_3", "obj_5", "obj_8"],
@@ -30,7 +31,7 @@ app.get("/obs", (req, res) => {
         name: "Affichage du plan de la salle",
         steps: [
           {
-            media: "pdf_1",
+            media: "plan.png",
           },
         ],
       },
