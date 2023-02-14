@@ -1,5 +1,11 @@
-label {
+.json {
+  display: block;
+  font-family: monospace;
   white-space: pre;
+  background-color: ghostwhite;
+  border: 1px solid silver;
+  padding: 10px 20px;
+  border-radius: 4px;
 }
 
 button {

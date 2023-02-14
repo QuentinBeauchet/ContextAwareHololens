@@ -1,72 +1,40 @@
-const displaySteps = (task) => {
-  document.getElementById("steps").innerHTML = generateSteps(task);
-};
+import { generateFieldSet } from "./utils.js";
 
 function generateTasks(tasks) {
-  return `
-    <fieldset>
-        <legend>Tasks</legend>
-    
-        ${tasks
-          .map(
-            (task, i) => `
-            <div onclick="displaySteps(window.tasks[${i}])">
-                <input type="radio" id="${task.name}" name="Tasks" data-type="task" ${i == 0 ? "checked" : ""}>
-                <label for="${task.name}">${task.name}</label>
-            </div>
-        `
-          )
-          .join("")}
-    </fieldset>
-    `;
+  return generateFieldSet(
+    tasks,
+    (i) => `Tasks_${i}`,
+    "Tasks",
+    "task",
+    (el) => el.name
+  );
 }
 
 function generateSteps(task) {
-  let { steps, name } = task;
-  return `
-<fieldset>
-    <legend>Steps</legend>
-
-    ${steps
-      .map(
-        (step, i) => `
-        <div>
-            <input type="radio" id="${name}_${i}" name="${name}" data-type="step" ${i == 0 ? "checked" : ""}>
-            <label for="${name}_${i}"><b>Step ${i}</b>\n${JSON.stringify(step, null, 2)}</label>
-        </div>
-    `
-      )
-      .join("")}
-</fieldset>
-`;
+  return generateFieldSet(
+    task.steps,
+    (i) => `${task.name}_${i}`,
+    task.name,
+    "step",
+    (el, i) => `<b>Step ${i}</b><span class="json">${el.prettyPrint()}</span>`
+  );
 }
 
 function generateContext(context) {
-  return `<fieldset>
-  <legend>Context</legend>
-  ${context
-    .map(
-      (obs, i) =>
-        `
+  return `
   <fieldset>
-      <legend>${obs.name}</legend>
-  
-      ${obs.states
-        .map(
-          (state, i) => `
-          <div>
-              <input type="radio" id="${obs.name}_${i}" name="${obs.name}" data-type="context" ${
-            i == 0 ? "checked" : ""
-          }>
-              <label for="${obs.name}_${i}">${state.name} => <b><i>${state.value}</b></i></label>
-          </div>
-      `
+    <legend>Context</legend>
+    ${context
+      .map((obs) =>
+        generateFieldSet(
+          obs.states,
+          (i) => `${obs.name}_${i}`,
+          obs.name,
+          "context",
+          (el) => `${el.name} => <b><i>${el.value}</i></b>`
         )
-        .join("")}
-  </fieldset>
-  `
-    )
-    .join("")}
+      )
+      .join("")}
   </fieldset>`;
 }
 
@@ -77,13 +45,21 @@ function updateStatus() {
 
     if (el.getAttribute("data-type") == "step") {
       let [t, s] = el.id.split("_");
-      simulation.task = window.tasks.find(({ name }) => name == t).steps[s];
-    }
-    if (el.getAttribute("data-type") == "context") {
+      let task = window.tasks.find(({ name }) => name == t);
+      simulation.task = { name: task.name, ...task.steps[s] };
+    } else if (el.getAttribute("data-type") == "context") {
       let [c, s] = el.id.split("_");
-      simulation.context.push(window.context.find(({ name }) => name == c).states[s]);
+      let context = window.context.find(({ name }) => name == c);
+      let { name, value } = context.states[s];
+      simulation.context.push({ name: context.name, description: name, value });
     }
   }
+
+  document.getElementById("current").innerHTML = `
+  <fieldset id="current">
+    <legend>Current</legend>
+    <div class="json">${simulation.prettyPrint()}</div>
+  </fieldset>`;
 
   console.log(simulation);
 }
@@ -98,8 +74,15 @@ window.onload = async () => {
   const el_tasks = document.getElementById("tasks");
   const el_steps = document.getElementById("steps");
   const el_context = document.getElementById("context");
+  const btn_update = document.getElementById("update");
 
   el_tasks.innerHTML = generateTasks(tasks);
   el_steps.innerHTML = generateSteps(tasks[0]);
   el_context.innerHTML = generateContext(context);
+
+  el_tasks.addEventListener("change", (el) => {
+    el_steps.innerHTML = generateSteps(tasks[el.target.id.split("_").pop()]);
+  });
+
+  btn_update.addEventListener("click", updateStatus);
 };
