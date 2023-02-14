@@ -1,0 +1,9 @@
+label {
+  white-space: pre;
+}
+
+button {
+  font-size: 2rem;
+  display: block;
+  margin: 1rem auto;
+}
