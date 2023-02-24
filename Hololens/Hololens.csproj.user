@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <DeviceId>3a4e6275-4097-a054-94dd-e12793d099f0</DeviceId>
-    <UseEmulator>true</UseEmulator>
-  </PropertyGroup>
-</Project>

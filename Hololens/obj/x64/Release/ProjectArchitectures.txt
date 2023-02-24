@@ -1,1 +1,0 @@
-C:\Users\Yann\OneDrive\Bureau\cours\m2\ContextAwareHololens\Hololens\Hololens.csproj;x64

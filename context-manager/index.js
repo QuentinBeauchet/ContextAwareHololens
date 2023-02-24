@@ -2,6 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 var cors = require("cors");
 
+const { isLightTooBright, isSoundTooLoud } = require("./utils");
+
 const app = express();
 const port = 3000;
 
@@ -35,6 +37,11 @@ app.get("/tasks", (req, res) => {
       ],
     },
   ]);
+});
+
+app.post("/update", (req, res) => {
+  console.log(req.body);
+  res.sendStatus(200);
 });
 
 app.listen(port, () => {
