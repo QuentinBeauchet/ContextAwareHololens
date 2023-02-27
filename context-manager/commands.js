@@ -1,1 +1,0 @@
-function hololensDisplayObj(obj) {}

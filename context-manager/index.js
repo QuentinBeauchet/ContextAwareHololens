@@ -2,7 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 var cors = require("cors");
 
-const { isLightTooBright, isSoundTooLoud } = require("./utils");
+const { manage } = require("./manager");
+const { castVideo } = require("./commands/chromecast");
 
 const app = express();
 const port = 3000;
@@ -21,7 +22,7 @@ app.get("/tasks", (req, res) => {
         },
         {
           display: ["obj_2", "obj_5"],
-          media: "video_1.mp4",
+          media: "video1.mp4",
         },
         {
           display: ["obj_3", "obj_5", "obj_8"],
@@ -40,7 +41,8 @@ app.get("/tasks", (req, res) => {
 });
 
 app.post("/update", (req, res) => {
-  console.log(req.body);
+  console.log("--------- Incomming update ---------");
+  manage(req.body);
   res.sendStatus(200);
 });
 
