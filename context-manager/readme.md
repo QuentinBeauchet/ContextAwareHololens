@@ -1,72 +1,12 @@
+# Starting the Context Manager
 
-## Schema archi 
-
-![alt text](https://github.com/QuentinBeauchet/ContextAwareHololens/blob/master/schema.PNG?raw=true)
-
-
-## Exemple : evaluation de prédicats
-POST request on `http://localhost:3000/pred`
-
-```json
-{
-  "technicien -> mains libres": {
-    "formula": "((Droite || Gauche) && Activité une main) || (Droite && Gauche)",
-    "values": {
-      "Droite": true,
-      "Gauche": false,
-      "Activité une main": false
-    }
-  },
-  "technicien -> ecrit": {
-    "formula": "Souhait || technicien -> mains libres",
-    "values": {
-      "Souhait": true,
-      "technicien -> mains libres": {
-        "formula": "((Droite || Gauche) && Activité une main) || (Droite && Gauche)",
-        "values": {
-          "Droite": true,
-          "Gauche": false,
-          "Activité une main": false
-        }
-      }
-    }
-  },
-  "technicien -> oral": {
-    "formula": "!(Confidentiel || Bruit) || !technicien -> mains libres",
-    "values": {
-      "Confidentiel": true,
-      "Bruit": false,
-      "technicien -> mains libres": {
-        "formula": "((Droite || Gauche) && Activité une main) || (Droite && Gauche)",
-        "values": {
-          "Droite": true,
-          "Gauche": false,
-          "Activité une main": false
-        }
-      }
-    }
-  },
-  "superviseur -> ecrit": {
-    "formula": "true",
-    "values": {
-      "Reunion": true
-    }
-  },
-  "superviseur -> oral": {
-    "formula": "!Reunion",
-    "values": {
-      "Reunion": true
-    }
-  }
-}
+```zsh
+npm start
 ```
 
-```json
-{
-  "technicien -> mains libres": false,
-  "technicien -> ecrit": true,
-  "technicien -> oral": true,
-  "superviseur -> ecrit": true,
-  "superviseur -> oral": false
-}
+### ⚠️ Might want to change the IP in displayElements.js ⚠️
+
+```js
+const LOCAL_IP = "192.168.0.134";
+const HOLOLENS_URL = "http://192.168.0.134:8080";
 ```
