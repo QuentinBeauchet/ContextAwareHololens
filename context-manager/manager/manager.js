@@ -1,6 +1,10 @@
-const { isLightTooBright, isSoundTooLoud } = require("./utils");
+const { isLightTooBright, isSoundTooLoud } = require("./predicates");
 const { displayImage, displayVideo, displayObject, resetScene } = require("./commands/displayElement");
 
+/**
+ * The main function that will say what to do for the current context.
+ * @param {Object} context
+ */
 function manage(context) {
   let preocupations = {
     subtitles: false,
@@ -21,6 +25,11 @@ function manage(context) {
   );
 }
 
+/**
+ * Distribute the directives for each element in the task.
+ * @param {Object} task
+ * @param {Object} preocupations
+ */
 function distributeDirectives(task, preocupations) {
   resetScene();
   for (let obj in task.display) {
@@ -29,6 +38,11 @@ function distributeDirectives(task, preocupations) {
   if (task.media) displayMedia(task.media, preocupations);
 }
 
+/**
+ * Call the right display order for the type of the media.
+ * @param {string} media
+ * @param {Object} preocupations
+ */
 function displayMedia(media, preocupations) {
   const extension = media.split(".").pop();
 

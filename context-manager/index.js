@@ -1,9 +1,9 @@
+const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
 var cors = require("cors");
 
-const { manage } = require("./manager");
-const { castVideo } = require("./commands/chromecast");
+const { manage } = require("./manager/manager");
 
 const app = express();
 const port = 3000;
@@ -13,34 +13,22 @@ app.use("/assets", express.static("assets"));
 app.use(bodyParser.json());
 
 app.get("/tasks", (req, res) => {
-  res.send([
-    {
-      name: "Maintenance des prises electriques",
-      steps: [
-        {
-          display: ["obj_1", "obj_2", "obj_3"],
-        },
-        {
-          display: ["obj_2", "obj_5"],
-          media: "video1.mp4",
-        },
-        {
-          display: ["obj_3", "obj_5", "obj_8"],
-        },
-      ],
-    },
-    {
-      name: "Affichage du plan de la salle",
-      steps: [
-        {
-          media: "plan.png",
-        },
-      ],
-    },
-  ]);
+  res.sendFile(path.join(__dirname, "./manager/parameters/tasks.json"));
 });
 
 app.post("/update", (req, res) => {
+  console.log("--------- Incomming update ---------");
+  manage(req.body);
+  res.sendStatus(200);
+});
+
+app.get("/rest/things", (req, res) => {
+  console.log("--------- Incomming update ---------");
+  manage(req.body);
+  res.sendStatus(200);
+});
+
+app.get("/rest/posts", (req, res) => {
   console.log("--------- Incomming update ---------");
   manage(req.body);
   res.sendStatus(200);
