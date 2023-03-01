@@ -16,19 +16,15 @@ app.get("/tasks", (req, res) => {
   res.sendFile(path.join(__dirname, "./manager/parameters/tasks.json"));
 });
 
-app.post("/update", (req, res) => {
-  console.log("--------- Incomming update ---------");
-  manage(req.body);
-  res.sendStatus(200);
-});
-
 app.get("/rest/things", (req, res) => {
-  console.log("--------- Incomming update ---------");
-  manage(req.body);
   res.sendStatus(200);
 });
 
 app.get("/rest/posts", (req, res) => {
+  res.sendStatus(200);
+});
+
+app.post("/update", (req, res) => {
   console.log("--------- Incomming update ---------");
   manage(req.body);
   res.sendStatus(200);
